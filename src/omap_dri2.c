@@ -316,7 +316,11 @@ OMAPDRI2DestroyBuffer(DrawablePtr pDraw, DRI2BufferPtr buffer)
 		pPriv->pThirdBuffer = NULL;
 	}
 
-	pScreen->DestroyPixmap(buf->pPixmap);
+	/* Pair refcount increment done in OMAPDRI2CreateBuffer */
+	if (buffer->attachment == DRI2BufferFrontLeft && buf->pPixmap->refcnt)
+		buf->pPixmap->refcnt--;
+	else
+		pScreen->DestroyPixmap(buf->pPixmap);
 
 	free(buf);
 }
