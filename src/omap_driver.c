@@ -542,7 +542,7 @@ OMAPPreInit(ScrnInfoPtr pScrn, int flags)
 	}
 
 	if (!pScrn->chipset) {
-		ERROR_MSG("Unknown chipset: %s", pScrn->chipset);
+		ERROR_MSG("Unknown chipset: %d", pOMAP->chipset);
 		goto fail;
 	}
 
