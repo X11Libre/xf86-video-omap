@@ -89,7 +89,7 @@ drm-build:
     - export INSTDIR="$PWD/_inst"
     - git clone --depth=1 https://gitlab.freedesktop.org/mesa/drm
     - pushd drm > /dev/null
-    - meson -Dprefix="$INSTDIR" -Domap=true _build
+    - meson -Dprefix="$INSTDIR" -Domap=enabled _build
     - ninja -j${FDO_CI_CONCURRENT:-4} -C _build install
     - popd > /dev/null
   variables:
