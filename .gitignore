@@ -13,6 +13,7 @@ libtool
 *.pc
 *.tar.gz
 *.tar.bz2
+compile
 config.log
 config.status
 config.guess
@@ -30,3 +31,9 @@ depcomp
 .project
 .settings
 man/omap.4
+m4/
+m4/libtool.m4
+m4/ltoptions.m4
+m4/ltsugar.m4
+m4/ltversion.m4
+m4/lt~obsolete.m4
