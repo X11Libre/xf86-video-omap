@@ -42,10 +42,6 @@
 #include "xf86cmap.h"
 /* for visuals */
 #include "fb.h"
-#if GET_ABI_MAJOR(ABI_VIDEODRV_VERSION) < 6
-#include "xf86Resources.h"
-#include "xf86RAC.h"
-#endif
 #include "xf86xv.h"
 #include "xf86Crtc.h"
 #include "xf86RandR12.h"

@@ -52,14 +52,14 @@ typedef struct _OMAPEXARec
 	 * generation to free per-Screen data structures (except those held by
 	 * pScrn).
 	 */
-	Bool (*CloseScreen)(CLOSE_SCREEN_ARGS_DECL);
+	Bool (*CloseScreen)(ScreenPtr pScreen);
 
 	/**
 	 * Called by X driver's FreeScreen() function at the end of each server
 	 * lifetime to free per-ScrnInfoRec data structures, to close any external
 	 * connections (e.g. with PVR2D, DRM), etc.
 	 */
-	void (*FreeScreen)(FREE_SCREEN_ARGS_DECL);
+	void (*FreeScreen)(ScrnInfoPtr pScrn);
 
 	/** get formats supported by PutTextureImage() (for dri2 video..) */
 #define MAX_FORMATS 16
