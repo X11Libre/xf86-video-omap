@@ -43,17 +43,17 @@ static const OptionInfoRec *OMAPAvailableOptions(int chipid, int busid);
 static void OMAPIdentify(int flags);
 static Bool OMAPProbe(DriverPtr drv, int flags);
 static Bool OMAPPreInit(ScrnInfoPtr pScrn, int flags);
-static Bool OMAPScreenInit(SCREEN_INIT_ARGS_DECL);
+static Bool OMAPScreenInit(ScreenPtr pScreen, int argc, char **argv);
 static void OMAPLoadPalette(ScrnInfoPtr pScrn, int numColors, int *indices,
 		LOCO * colors, VisualPtr pVisual);
-static Bool OMAPCloseScreen(CLOSE_SCREEN_ARGS_DECL);
+static Bool OMAPCloseScreen(ScreenPtr pScreen);
 static Bool OMAPCreateScreenResources(ScreenPtr pScreen);
 static void OMAPBlockHandler(BLOCKHANDLER_ARGS_DECL);
-static Bool OMAPSwitchMode(SWITCH_MODE_ARGS_DECL);
-static void OMAPAdjustFrame(ADJUST_FRAME_ARGS_DECL);
-static Bool OMAPEnterVT(VT_FUNC_ARGS_DECL);
-static void OMAPLeaveVT(VT_FUNC_ARGS_DECL);
-static void OMAPFreeScreen(FREE_SCREEN_ARGS_DECL);
+static Bool OMAPSwitchMode(ScrnInfoPtr pScrn, DisplayModePtr mode);
+static void OMAPAdjustFrame(ScrnInfoPtr pScrn, int x, int y);
+static Bool OMAPEnterVT(ScrnInfoPtr pScrn);
+static void OMAPLeaveVT(ScrnInfoPtr pScrn);
+static void OMAPFreeScreen(ScrnInfoPtr pScrn);
 #ifdef XSERVER_PLATFORM_BUS
 static Bool OMAPPlatformProbe(DriverPtr drv, int entity_num, int flags,
 		struct xf86_platform_device *dev, intptr_t match_data);
@@ -706,7 +706,7 @@ OMAPAccelInit(ScreenPtr pScreen)
  * save state, initialize the mode, etc.
  */
 static Bool
-OMAPScreenInit(SCREEN_INIT_ARGS_DECL)
+OMAPScreenInit(ScreenPtr pScreen, int argc, char **argv)
 {
 	ScrnInfoPtr pScrn = xf86Screens[pScreen->myNum];
 	OMAPPtr pOMAP = OMAPPTR(pScrn);
@@ -820,7 +820,7 @@ OMAPScreenInit(SCREEN_INIT_ARGS_DECL)
 	/* Take over the virtual terminal from the console, set the desired mode,
 	 * etc.:
 	 */
-	OMAPEnterVT(VT_FUNC_ARGS(0));
+	OMAPEnterVT(NULL);
 
 	/* Set the desired mode(s): */
 	if (!xf86SetDesiredModes(pScrn)) {
@@ -892,7 +892,7 @@ OMAPLoadPalette(ScrnInfoPtr pScrn, int numColors, int *indices,
  * held by pScrn).
  */
 static Bool
-OMAPCloseScreen(CLOSE_SCREEN_ARGS_DECL)
+OMAPCloseScreen(ScreenPtr pScreen)
 {
 	ScrnInfoPtr pScrn = xf86ScreenToScrn(pScreen);
 	OMAPPtr pOMAP = OMAPPTR(pScrn);
@@ -902,12 +902,12 @@ OMAPCloseScreen(CLOSE_SCREEN_ARGS_DECL)
 	drmmode_screen_fini(pScrn);
 
 	if (pScrn->vtSema == TRUE) {
-		OMAPLeaveVT(VT_FUNC_ARGS(0));
+		OMAPLeaveVT(NULL);
 	}
 
 	if (pOMAP->pOMAPEXA) {
 		if (pOMAP->pOMAPEXA->CloseScreen) {
-			pOMAP->pOMAPEXA->CloseScreen(CLOSE_SCREEN_ARGS);
+			pOMAP->pOMAPEXA->CloseScreen(pScreen);
 		}
 	}
 
@@ -927,7 +927,7 @@ OMAPCloseScreen(CLOSE_SCREEN_ARGS_DECL)
 
 	TRACE_EXIT();
 
-	return (*pScreen->CloseScreen)(CLOSE_SCREEN_ARGS);
+	return (*pScreen->CloseScreen)(pScreen);
 }
 
 
@@ -956,7 +956,6 @@ OMAPCreateScreenResources(ScreenPtr pScreen)
 static void
 OMAPBlockHandler(BLOCKHANDLER_ARGS_DECL)
 {
-	SCREEN_PTR(arg);
 	ScrnInfoPtr pScrn = xf86ScreenToScrn(pScreen);
 	OMAPPtr pOMAP = OMAPPTR(pScrn);
 
@@ -974,9 +973,8 @@ OMAPBlockHandler(BLOCKHANDLER_ARGS_DECL)
  * Screen.
  */
 static Bool
-OMAPSwitchMode(SWITCH_MODE_ARGS_DECL)
+OMAPSwitchMode(ScrnInfoPtr pScrn, DisplayModePtr mode)
 {
-	SCRN_INFO_PTR(arg);
 	return xf86SetSingleMode(pScrn, mode, RR_Rotate_0);
 }
 
@@ -988,9 +986,8 @@ OMAPSwitchMode(SWITCH_MODE_ARGS_DECL)
  * buffer within the "viewport" of the monitor.
  */
 static void
-OMAPAdjustFrame(ADJUST_FRAME_ARGS_DECL)
+OMAPAdjustFrame(ScrnInfoPtr pScrn, int x, int y)
 {
-	SCRN_INFO_PTR(arg);
 	drmmode_adjust_frame(pScrn, x, y);
 }
 
@@ -1003,9 +1000,8 @@ OMAPAdjustFrame(ADJUST_FRAME_ARGS_DECL)
  * HW state as needed by the X server.
  */
 static Bool
-OMAPEnterVT(VT_FUNC_ARGS_DECL)
+OMAPEnterVT(ScrnInfoPtr pScrn)
 {
-	SCRN_INFO_PTR(arg);
 	OMAPPtr pOMAP = OMAPPTR(pScrn);
 	int ret;
 
@@ -1033,9 +1029,8 @@ OMAPEnterVT(VT_FUNC_ARGS_DECL)
  * need to restore the console's HW state.
  */
 static void
-OMAPLeaveVT(VT_FUNC_ARGS_DECL)
+OMAPLeaveVT(ScrnInfoPtr pScrn)
 {
-	SCRN_INFO_PTR(arg);
 	OMAPPtr pOMAP = OMAPPTR(pScrn);
 	int ret;
 
@@ -1057,9 +1052,8 @@ OMAPLeaveVT(VT_FUNC_ARGS_DECL)
  * up-to-and-including an unsuccessful ScreenInit() call.
  */
 static void
-OMAPFreeScreen(FREE_SCREEN_ARGS_DECL)
+OMAPFreeScreen(ScrnInfoPtr pScrn)
 {
-	SCRN_INFO_PTR(arg);
 	OMAPPtr pOMAP = OMAPPTR(pScrn);
 
 	TRACE_ENTER();
@@ -1071,7 +1065,7 @@ OMAPFreeScreen(FREE_SCREEN_ARGS_DECL)
 
 	if (pOMAP->pOMAPEXA) {
 		if (pOMAP->pOMAPEXA->FreeScreen) {
-			pOMAP->pOMAPEXA->FreeScreen(FREE_SCREEN_ARGS(pScrn));
+			pOMAP->pOMAPEXA->FreeScreen(pScrn);
 		}
 		free(pOMAP->pOMAPEXA);
 	}
