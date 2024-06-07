@@ -1,6 +1,10 @@
 #! /bin/sh
 
-cd `dirname $0`
+srcdir=`dirname "$0"`
+test -z "$srcdir" && srcdir=.
+
+ORIGDIR=`pwd`
+cd "$srcdir"
 
 # on some platforms, you have "g" versions of some of these tools instead,
 # ie glibtoolize instead of libtoolize..
@@ -22,12 +26,13 @@ test -n "$NOCONFIGURE" && {
   exit 0
 }
 
+cd "$ORIGDIR"
+
 CONFIGURE_DEF_OPT="--enable-maintainer-mode"
-echo ./configure $CONFIGURE_DEF_OPT $*
-./configure $CONFIGURE_DEF_OPT $* || {
+echo $srcdir/configure $CONFIGURE_DEF_OPT $*
+$srcdir/configure $CONFIGURE_DEF_OPT $* || {
         echo "  configure failed"
         exit 1
 }
 
 echo "Now type 'make' to compile"
-
