@@ -78,7 +78,7 @@ setupplane(ScreenPtr pScreen, PixmapPtr pSrcPix, int width, int height,
 
 	if (pSrcPix && ((pSrcPix->drawable.height != height) ||
 			(pSrcPix->drawable.width != width))) {
-		pScreen->DestroyPixmap(pSrcPix);
+		dixDestroyPixmap(pSrcPix, 0);
 		pSrcPix = NULL;
 	}
 
@@ -110,7 +110,7 @@ freebufs(ScreenPtr pScreen, OMAPPortPrivPtr pPriv)
 	int i;
 	for (i = 0; i < ARRAY_SIZE(pPriv->pSrcPix); i++) {
 		if (pPriv->pSrcPix[i])
-			pScreen->DestroyPixmap(pPriv->pSrcPix[i]);
+			dixDestroyPixmap(pPriv->pSrcPix[i], 0);
 		pPriv->pSrcPix[i] = NULL;
 	}
 }
