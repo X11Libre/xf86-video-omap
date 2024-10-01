@@ -112,7 +112,7 @@ builtin laptop screen, both running at 1024x768.
 
 The xf86-video-omap driver is part of the X.Org and Freedesktop.org
 umbrella projects.  Report bugs at
-https://bugs.freedesktop.org/enter_bug.cgi?product=xorg.  Mailing
+https://gitlab.freedesktop.org/xorg/driver/xf86-video-omap/. Mailing
 lists are also commonly used to report experiences and ask questions
 about configuration and other topics.  See lists.freedesktop.org for
 more information (the xorg@lists.freedesktop.org mailing list is the
