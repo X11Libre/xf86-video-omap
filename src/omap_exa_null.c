@@ -77,7 +77,7 @@ PrepareCompositeFail(int op, PicturePtr pSrcPicture, PicturePtr pMaskPicture,
 }
 
 static Bool
-CloseScreen(CLOSE_SCREEN_ARGS_DECL)
+CloseScreen(ScreenPtr pScreen)
 {
 #if 0 // TODO need to change CloseScreen/FreeScreen ..
 	exaDriverFini(pScreen);
@@ -87,7 +87,7 @@ CloseScreen(CLOSE_SCREEN_ARGS_DECL)
 }
 
 static void
-FreeScreen(FREE_SCREEN_ARGS_DECL)
+FreeScreen(ScrnInfoPtr pScrn)
 {
 }
 

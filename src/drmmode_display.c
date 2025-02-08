@@ -1144,7 +1144,7 @@ drmmode_reallocate_scanout(ScrnInfoPtr pScrn, Bool redraw, xf86CrtcPtr crtc)
 		drmmode_remove_fb(pScrn);
 
 		if (pScreen && pScrn->EnableDisableFBAccess && redraw)
-			pScrn->EnableDisableFBAccess(ENABLE_DISABLE_FB_ACCESS_ARGS(pScrn, FALSE));
+			pScrn->EnableDisableFBAccess(pScrn, FALSE);
 
 		/* delete old scanout buffer */
 		omap_bo_del(pOMAP->scanout);
@@ -1182,7 +1182,7 @@ drmmode_reallocate_scanout(ScrnInfoPtr pScrn, Bool redraw, xf86CrtcPtr crtc)
 		}
 
 		if (pScreen && pScrn->EnableDisableFBAccess && redraw)
-			pScrn->EnableDisableFBAccess(ENABLE_DISABLE_FB_ACCESS_ARGS(pScrn, TRUE));
+			pScrn->EnableDisableFBAccess(pScrn, TRUE);
 
 		/* if reallocation triggered by a mode-set, we need to reconfigure any
 		 * other crtc's which have just been torn down by destroying the old fb:
