@@ -258,8 +258,10 @@ OMAPDRI2CreateBuffer(DrawablePtr pDraw, unsigned int attachment,
 			PixmapPtr pNewPix = createpix(pDraw, TRUE);
 
 			// TODO copy contents..
+
 			OMAPPixmapExchange(pPixmap, pNewPix);
-			dixDestroyPixmap(pNewPix, 0);
+
+			pScreen->DestroyPixmap(pNewPix);
 		}
 
 		pPixmap->refcnt++;
@@ -318,7 +320,7 @@ OMAPDRI2DestroyBuffer(DrawablePtr pDraw, DRI2BufferPtr buffer)
 	if (buffer->attachment == DRI2BufferFrontLeft && buf->pPixmap->refcnt)
 		buf->pPixmap->refcnt--;
 	else
-		dixDestroyPixmap(buf->pPixmap, 0);
+		pScreen->DestroyPixmap(buf->pPixmap);
 
 	free(buf);
 }
