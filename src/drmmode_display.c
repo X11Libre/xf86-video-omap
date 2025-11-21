@@ -69,8 +69,6 @@
 #include "xf86Cursor.h"
 #include "xf86DDC.h"
 
-#include "region.h"
-
 #include <X11/extensions/randr.h>
 
 #ifdef HAVE_XEXTPROTO_71
