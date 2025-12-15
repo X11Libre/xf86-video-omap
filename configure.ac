@@ -2,10 +2,10 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.60)
-AC_INIT([xf86-video-omap],
+AC_INIT([xlibre-xf86-video-omap],
         [0.4.5],
-        [https://gitlab.freedesktop.org:xorg/driver/xf86-video-omap.git/issues],
-        [xf86-video-omap])
+        [https://github.com/X11Libre/xf86-video-omap/issues],
+        [xlibre-xf86-video-omap])
 AC_CONFIG_SRCDIR([Makefile.am])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR(.)
