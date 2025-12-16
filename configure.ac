@@ -3,7 +3,7 @@
 
 AC_PREREQ(2.60)
 AC_INIT([xlibre-xf86-video-omap],
-        [0.4.5],
+        [0.4.6],
         [https://github.com/X11Libre/xf86-video-omap/issues],
         [xlibre-xf86-video-omap])
 AC_CONFIG_SRCDIR([Makefile.am])
