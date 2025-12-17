@@ -1,5 +1,3 @@
-/* -*- mode: C; c-file-style: "k&r"; tab-width 4; indent-tabs-mode: t; -*- */
-
 /*
  * Copyright © 2012 Texas Instruments, Inc
  *
@@ -25,10 +23,7 @@
  * Authors:
  *    Rob Clark <rob@ti.com>
  */
-
-#ifdef HAVE_CONFIG_H
 #include "config.h"
-#endif
 
 #include "xf86xv.h"
 #include <X11/extensions/Xv.h>

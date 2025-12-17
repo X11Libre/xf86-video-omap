@@ -27,10 +27,7 @@
  *    Dave Airlie <airlied@redhat.com>
  *    Ian Elliott <ianelliottus@yahoo.com>
  */
-
-#ifdef HAVE_CONFIG_H
 #include "config.h"
-#endif
 
 /* TODO cleanup #includes, remove unnecessary ones */
 
