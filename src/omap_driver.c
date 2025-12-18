@@ -71,10 +71,8 @@ _X_EXPORT DriverRec OMAP = {
 		NULL,
 		0,
 		NULL,
-#ifdef XSERVER_LIBPCIACCESS
 		NULL,
 		NULL,
-#endif
 #ifdef XSERVER_PLATFORM_BUS
 		OMAPPlatformProbe,
 #endif
