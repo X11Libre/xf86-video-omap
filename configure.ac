@@ -54,8 +54,6 @@ if test "$VIDEO_DEBUG" = yes; then
 	AC_DEFINE(VIDEO_DEBUG,1,[Enable debug support])
 fi
 
-DRIVER_NAME=omap
-AC_SUBST([DRIVER_NAME])
 AC_SUBST([moduledir])
 
 AC_OUTPUT([

@@ -22,9 +22,9 @@
 # 
 
 drivermandir = $(DRIVER_MAN_DIR)
-driverman_DATA = $(DRIVER_NAME).$(DRIVER_MAN_SUFFIX)
+driverman_DATA = omap.$(DRIVER_MAN_SUFFIX)
 
-EXTRA_DIST = $(DRIVER_NAME).man
+EXTRA_DIST = omap.man
 
 CLEANFILES = $(driverman_DATA)
 
