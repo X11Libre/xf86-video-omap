@@ -57,7 +57,6 @@
 
 #include <errno.h>
 
-#include "compat-api.h"
 #include "omap_exa.h"
 
 

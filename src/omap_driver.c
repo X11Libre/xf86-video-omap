@@ -43,7 +43,7 @@ static void OMAPLoadPalette(ScrnInfoPtr pScrn, int numColors, int *indices,
 		LOCO * colors, VisualPtr pVisual);
 static Bool OMAPCloseScreen(ScreenPtr pScreen);
 static Bool OMAPCreateScreenResources(ScreenPtr pScreen);
-static void OMAPBlockHandler(BLOCKHANDLER_ARGS_DECL);
+static void OMAPBlockHandler(ScreenPtr pScreen, pointer pTimeout);
 static Bool OMAPSwitchMode(ScrnInfoPtr pScrn, DisplayModePtr mode);
 static void OMAPAdjustFrame(ScrnInfoPtr pScrn, int x, int y);
 static Bool OMAPEnterVT(ScrnInfoPtr pScrn);
@@ -947,13 +947,13 @@ OMAPCreateScreenResources(ScreenPtr pScreen)
 
 
 static void
-OMAPBlockHandler(BLOCKHANDLER_ARGS_DECL)
+OMAPBlockHandler(ScreenPtr pScreen, pointer pTimeout)
 {
 	ScrnInfoPtr pScrn = xf86ScreenToScrn(pScreen);
 	OMAPPtr pOMAP = OMAPPTR(pScrn);
 
 	swap(pOMAP, pScreen, BlockHandler);
-	(*pScreen->BlockHandler) (BLOCKHANDLER_ARGS);
+	(*pScreen->BlockHandler) (pScreen, pTimeout);
 	swap(pOMAP, pScreen, BlockHandler);
 
 	/* TODO OMAPVideoBlockHandler(), etc.. */
