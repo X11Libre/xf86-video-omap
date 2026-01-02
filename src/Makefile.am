@@ -51,5 +51,4 @@ omap_drv_la_SOURCES = \
          omap_dri2.c \
          omap_driver.c \
          omap_driver.h \
-         omap_util.h \
-         compat-api.h
+         omap_util.h

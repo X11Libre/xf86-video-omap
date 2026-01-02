@@ -37,8 +37,6 @@
 #include "omap_util.h"
 #include "exa.h"
 
-#include "compat-api.h"
-
 /**
  * A per-Screen structure used to communicate and coordinate between the OMAP X
  * driver and an external EXA sub-module (if loaded).
