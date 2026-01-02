@@ -212,7 +212,6 @@ drmmode_crtc_dpms(xf86CrtcPtr drmmode_crtc, int mode)
 static Bool
 drmmode_set_rotation(xf86CrtcPtr crtc, Rotation rotation)
 {
-#if XF86_CRTC_VERSION >= 4
 	ScrnInfoPtr pScrn = crtc->scrn;
 	OMAPPtr pOMAP = OMAPPTR(pScrn);
 	drmmode_crtc_private_ptr drmmode_crtc = crtc->driver_private;
@@ -231,13 +230,8 @@ drmmode_set_rotation(xf86CrtcPtr crtc, Rotation rotation)
 			return FALSE;
 		}
 
-#if XF86_CRTC_VERSION >= 7
 		crtc->driverIsPerformingTransform = XF86DriverTransformOutput;
-#else
-		crtc->driverIsPerformingTransform = TRUE;
-#endif
 	}
-#endif
 	return xf86CrtcRotate(crtc);
 }
 
@@ -456,15 +450,6 @@ drmmode_show_cursor(xf86CrtcPtr crtc)
 	if ((crtc_y + h) > crtc->mode.VDisplay) {
 		h = crtc->mode.VDisplay - crtc_y;
 	}
-
-#if XF86_CRTC_VERSION >= 4 && XF86_CRTC_VERSION < 7
-	/* NOTE: driver is taking care of rotation in hw, which means
-	 * we need to deal w/ transformation of mouse cursor ourself:
-	 */
-	if (crtc->driverIsPerformingTransform) {
-		xf86CrtcTransformCursorPos(crtc, &crtc_x, &crtc_y);
-	}
-#endif
 
 	/* note src coords (last 4 args) are in Q16 format */
 	drmModeSetPlane(drmmode->fd, cursor->ovr->plane_id,

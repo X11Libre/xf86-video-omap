@@ -830,11 +830,6 @@ OMAPScreenInit(ScreenPtr pScreen, int argc, char **argv)
 	if (has_rotation(pOMAP)) {
 		xf86RandR12SetRotations(pScreen, RR_Rotate_0 | RR_Rotate_90 |
 				RR_Rotate_180 | RR_Rotate_270 | RR_Reflect_X | RR_Reflect_Y);
-	} else {
-#if XF86_CRTC_VERSION < 4
-		WARNING_MSG("rotation not supported by XF86_CRTC_VERSION version: %d",
-				XF86_CRTC_VERSION);
-#endif
 	}
 
 	if (!miCreateDefColormap(pScreen)) {

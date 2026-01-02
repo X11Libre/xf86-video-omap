@@ -184,11 +184,7 @@ static inline Bool has_dmm(OMAPPtr pOMAP)
 
 static inline Bool has_rotation(OMAPPtr pOMAP)
 {
-#if XF86_CRTC_VERSION >= 4
 	return has_dmm(pOMAP) && pOMAP->rotation_supported;
-#else
-	return FALSE;
-#endif
 }
 
 /** Return a pointer to the driver's private structure. */
