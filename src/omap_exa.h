@@ -136,7 +136,7 @@ void * OMAPCreatePixmap (ScreenPtr pScreen, int width, int height,
 void OMAPDestroyPixmap(ScreenPtr pScreen, void *driverPriv);
 Bool OMAPModifyPixmapHeader(PixmapPtr pPixmap, int width, int height,
 		int depth, int bitsPerPixel, int devKind,
-		pointer pPixData);
+		void *pPixData);
 void OMAPWaitMarker(ScreenPtr pScreen, int marker);
 Bool OMAPPrepareAccess(PixmapPtr pPixmap, int index);
 void OMAPFinishAccess(PixmapPtr pPixmap, int index);
