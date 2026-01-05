@@ -84,7 +84,7 @@ OMAPDestroyPixmap(ScreenPtr pScreen, void *driverPriv)
 _X_EXPORT Bool
 OMAPModifyPixmapHeader(PixmapPtr pPixmap, int width, int height,
 		int depth, int bitsPerPixel, int devKind,
-		pointer pPixData)
+		void *pPixData)
 {
 	OMAPPixmapPrivPtr priv = exaGetPixmapDriverPrivate(pPixmap);
 	ScrnInfoPtr pScrn = pix2scrn(pPixmap);

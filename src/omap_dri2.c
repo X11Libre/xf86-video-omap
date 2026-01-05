@@ -99,7 +99,7 @@ typedef struct {
 } OMAPDRI2DrawableRec, *OMAPDRI2DrawablePtr;
 
 static int
-OMAPDRI2DrawableGone(pointer p, XID id)
+OMAPDRI2DrawableGone(void *p, XID id)
 {
 	OMAPDRI2DrawablePtr pPriv = p;
 	DrawablePtr pDraw = pPriv->pDraw;

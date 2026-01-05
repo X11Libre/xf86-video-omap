@@ -43,7 +43,7 @@ static void OMAPLoadPalette(ScrnInfoPtr pScrn, int numColors, int *indices,
 		LOCO * colors, VisualPtr pVisual);
 static Bool OMAPCloseScreen(ScreenPtr pScreen);
 static Bool OMAPCreateScreenResources(ScreenPtr pScreen);
-static void OMAPBlockHandler(ScreenPtr pScreen, pointer pTimeout);
+static void OMAPBlockHandler(ScreenPtr pScreen, void *pTimeout);
 static Bool OMAPSwitchMode(ScrnInfoPtr pScrn, DisplayModePtr mode);
 static void OMAPAdjustFrame(ScrnInfoPtr pScrn, int x, int y);
 static Bool OMAPEnterVT(ScrnInfoPtr pScrn);
@@ -253,8 +253,8 @@ _X_EXPORT XF86ModuleData omapModuleData = { &OMAPVersRec, OMAPSetup, NULL };
 /**
  * The first function that the XFree86 code calls, after loading this module.
  */
-static pointer
-OMAPSetup(pointer module, pointer opts, int *errmaj, int *errmin)
+static void *
+OMAPSetup(void *module, void *opts, int *errmaj, int *errmin)
 {
 	static Bool setupDone = FALSE;
 
@@ -270,7 +270,7 @@ OMAPSetup(pointer module, pointer opts, int *errmaj, int *errmin)
 		/* The return value must be non-NULL on success even though there is no
 		 * TearDownProc.
 		 */
-		return (pointer) 1;
+		return (void*) 1;
 	} else {
 		if (errmaj)
 			*errmaj = LDR_ONCEONLY;
@@ -942,7 +942,7 @@ OMAPCreateScreenResources(ScreenPtr pScreen)
 
 
 static void
-OMAPBlockHandler(ScreenPtr pScreen, pointer pTimeout)
+OMAPBlockHandler(ScreenPtr pScreen, void *pTimeout)
 {
 	ScrnInfoPtr pScrn = xf86ScreenToScrn(pScreen);
 	OMAPPtr pOMAP = OMAPPTR(pScrn);

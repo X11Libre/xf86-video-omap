@@ -112,21 +112,21 @@ freebufs(ScreenPtr pScreen, OMAPPortPrivPtr pPriv)
 
 
 static void
-OMAPVideoStopVideo(ScrnInfoPtr pScrn, pointer data, Bool exit)
+OMAPVideoStopVideo(ScrnInfoPtr pScrn, void *data, Bool exit)
 {
 	/* maybe we can deallocate pSrcPix here?? */
 }
 
 static int
 OMAPVideoSetPortAttribute(ScrnInfoPtr pScrn, Atom attribute,
-		INT32 value, pointer data)
+		INT32 value, void *data)
 {
 	return BadMatch;
 }
 
 static int
 OMAPVideoGetPortAttribute(ScrnInfoPtr pScrn, Atom attribute,
-		INT32 *value, pointer data)
+		INT32 *value, void *data)
 {
 	return BadMatch;
 }
@@ -136,7 +136,7 @@ OMAPVideoQueryBestSize(ScrnInfoPtr pScrn, Bool motion,
 		short vid_w, short vid_h,
 		short drw_w, short drw_h,
 		unsigned int *p_w, unsigned int *p_h,
-		pointer data)
+		void *data)
 {
 	/* currently no constraints.. */
 	*p_w = drw_w;
@@ -194,7 +194,7 @@ static int
 OMAPVideoPutImage(ScrnInfoPtr pScrn, short src_x, short src_y, short drw_x,
 		short drw_y, short src_w, short src_h, short drw_w, short drw_h,
 		int id, unsigned char *buf, short width, short height,
-		Bool Sync, RegionPtr clipBoxes, pointer data, DrawablePtr pDstDraw)
+		Bool Sync, RegionPtr clipBoxes, void *data, DrawablePtr pDstDraw)
 {
 	ScreenPtr pScreen = pDstDraw->pScreen;
 	OMAPPortPrivPtr pPriv = (OMAPPortPrivPtr)data;
@@ -370,7 +370,7 @@ OMAPVideoSetupTexturedVideo(ScreenPtr pScreen)
 
 	pPriv = (OMAPPortPrivPtr)(&adapt->pPortPrivates[NUM_TEXTURE_PORTS]);
 	for(i = 0; i < NUM_TEXTURE_PORTS; i++)
-		adapt->pPortPrivates[i].ptr = (pointer)(pPriv);
+		adapt->pPortPrivates[i].ptr = pPriv;
 
 	adapt->nAttributes		= ARRAY_SIZE(OMAPVideoTexturedAttributes);
 	adapt->pAttributes		= OMAPVideoTexturedAttributes;
