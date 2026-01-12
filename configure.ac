@@ -47,11 +47,6 @@ sdkdir=$(pkg-config --variable=sdkdir xorg-server)
 # Checks for header files.
 AC_HEADER_STDC
 
-AM_CONDITIONAL(VIDEO_DEBUG, test x$VIDEO_DEBUG = xyes)
-if test "$VIDEO_DEBUG" = yes; then
-	AC_DEFINE(VIDEO_DEBUG,1,[Enable debug support])
-fi
-
 AC_SUBST([moduledir])
 
 AC_OUTPUT([Makefile src/Makefile man/Makefile])
