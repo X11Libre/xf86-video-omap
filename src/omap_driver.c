@@ -658,9 +658,14 @@ OMAPAccelInit(ScreenPtr pScreen)
 		case 0x4460:
 		case 0x5430:
 		case 0x5432:
-		case 0x0752:
+		case 0x0752: {
+			/* defined by the PVR sub-module loaded in PreInit */
+			OMAPEXAPtr (*init_pvr)(ScreenPtr, ScrnInfoPtr, int) =
+					LoaderSymbol("InitPowerVREXA");
+
 			INFO_MSG("Initializing the \"%s\" sub-module ...", SUB_MODULE_PVR);
-			pOMAP->pOMAPEXA = InitPowerVREXA(pScreen, pScrn, pOMAP->drmFD);
+			pOMAP->pOMAPEXA = init_pvr ?
+					init_pvr(pScreen, pScrn, pOMAP->drmFD) : NULL;
 			if (pOMAP->pOMAPEXA) {
 				INFO_MSG("Successfully initialized the \"%s\" sub-module",
 						SUB_MODULE_PVR);
@@ -670,6 +675,7 @@ OMAPAccelInit(ScreenPtr pScreen)
 				pOMAP->NoAccel = TRUE;
 			}
 			break;
+		}
 		default:
 			ERROR_MSG("Unsupported chipset: %d", pOMAP->chipset);
 			pOMAP->NoAccel = TRUE;
