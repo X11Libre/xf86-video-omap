@@ -249,6 +249,10 @@ static XF86ModuleVersionInfo OMAPVersRec =
 /** Let the XFree86 code know about the VersRec and Setup() function. */
 _X_EXPORT XF86ModuleData omapModuleData = { &OMAPVersRec, OMAPSetup, NULL };
 
+#ifdef XF86_MODULE_VERSION_SUFFIX
+XF86_MODULE_VERSION_SUFFIX(omap, OMAP_VERSION_SUFFIX);
+#endif
+
 
 /**
  * The first function that the XFree86 code calls, after loading this module.

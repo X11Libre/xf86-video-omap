@@ -63,9 +63,10 @@
 #define OMAP_VERSION		1000	/* Apparently not used by X server */
 #define OMAP_NAME			"OMAP"	/* Name used to prefix messages */
 #define OMAP_DRIVER_NAME	"omap"	/* Driver name as used in config file */
-#define OMAP_MAJOR_VERSION	0
-#define OMAP_MINOR_VERSION	83
-#define OMAP_PATCHLEVEL		0
+#define OMAP_MAJOR_VERSION	PACKAGE_VERSION_MAJOR
+#define OMAP_MINOR_VERSION	PACKAGE_VERSION_MINOR
+#define OMAP_PATCHLEVEL		PACKAGE_VERSION_PATCHLEVEL
+#define OMAP_VERSION_SUFFIX	PACKAGE_VERSION_SUFFIX
 
 /**
  * This controls whether debug statements (and function "trace" enter/exit)
